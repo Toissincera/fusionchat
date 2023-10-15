@@ -23,7 +23,6 @@ export default function UserSafeHouse({
   currentlyLoggedInUser,
   setCurrentlyLoggedInUser,
 }) {
-  const [currentMenu, setCurrentMenu] = useState("");
   const [addNewPublic, setAddNewPublic] = useState("");
   const [sessionsList, setSessionsList] = useState([]);
   const [existingChat, setExistingChat] = useState([]);
@@ -32,10 +31,7 @@ export default function UserSafeHouse({
     useState("");
   const [currentlyTalkingToSessionID, setCurrentlyTalkingToSessionID] =
     useState("");
-
-  function handlePublicRoom() {
-    setCurrentMenu("publicRoom");
-  }
+  const [showingChat, setShowingChat] = useState(false);
 
   async function handleAddNewPublic() {
     if (addNewPublic.trim() === "") return;
@@ -143,11 +139,13 @@ export default function UserSafeHouse({
   return (
     <main
       className="d-flex flex-nowrap"
-      style={{ height: "90vh",
-      backgroundImage: `url(${bg2})`,
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center", }}
+      style={{
+        height: "90vh",
+        backgroundImage: `url(${bg2})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <div
         className="d-flex flex-column flex-shrink-0 bg-dark"
@@ -157,7 +155,7 @@ export default function UserSafeHouse({
           className="nav nav-pills nav-flush flex-column mb-auto text-center bg-dark"
           style={{ cursor: "pointer" }}
         >
-          <li className="nav-item p-2 py-4">
+          <li className="nav-item p-2 py-4 opacity-25">
             <i
               className="bi bi-house h4"
               style={{
@@ -170,10 +168,13 @@ export default function UserSafeHouse({
           </li>
           <li
             className="nav-item p-2 py-4 pointer"
-            onClick={handlePublicRoom}
+            onClick={() => {
+              setShowingChat((prev) => !prev);
+            }}
           >
             <i
-              className="bi bi-chat h4"
+              // className="bi bi-chat h4"
+              className={`bi h-4 ${showingChat ? "bi-chat-fill" : "bi-chat"}`}
               style={{
                 fontSize: "2rem",
                 color: "yellow",
@@ -182,7 +183,7 @@ export default function UserSafeHouse({
               }}
             ></i>
           </li>
-          <li className="nav-item p-2 py-4">
+          <li className="nav-item p-2 py-4 opacity-25">
             <i
               className="bi bi-chat-heart h4"
               style={{
@@ -193,7 +194,7 @@ export default function UserSafeHouse({
               }}
             ></i>
           </li>
-          <li className="nav-item p-2 py-4">
+          <li className="nav-item p-2 py-4 opacity-25">
             <i
               className="bi bi-gear-fill h4"
               style={{
@@ -212,21 +213,23 @@ export default function UserSafeHouse({
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              src="https://github.com/mdo.png"
-              alt="mdo"
-              width="24"
-              height="24"
-              className="rounded-circle"
-            />
+            <i
+              className="bi bi-person-fill-gear h4"
+              style={{
+                fontSize: "2rem",
+                color: "yellow",
+                height: "2rem",
+                width: "2rem",
+              }}
+            ></i>
           </a>
           <ul
-            className="dropdown-menu text-small shadow"
+            className="dropdown-menu text-small shadow text-warning bg-black"
             style={{}}
           >
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-warning bg-black"
                 href="#"
               >
                 What's New
@@ -234,7 +237,7 @@ export default function UserSafeHouse({
             </li>
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-warning bg-black"
                 href="#"
               >
                 Add account
@@ -242,7 +245,7 @@ export default function UserSafeHouse({
             </li>
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-warning bg-black"
                 href="#"
               >
                 Profile
@@ -254,7 +257,7 @@ export default function UserSafeHouse({
             </li>
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-warning bg-black"
                 href="#"
               >
                 Sign out
@@ -271,87 +274,89 @@ export default function UserSafeHouse({
 
       {/* //////////////                    MIDDLE MENU                     /////////////////////// */}
 
-      <div
-        className="d-flex flex-column align-items-stretch flex-shrink-0"
-        style={{
-          width: "380px",
-          height: "80vh",
-          overflow: "scroll",
-        }}
-      >
+      <div style={{ display: showingChat ? "none" : "flex" }}>
         <div
-          href="/"
-          className="d-flex align-items-center flex-shrink-0 link-body-emphasis text-decoration-none border-bottom"
+          className="d-flex flex-column align-items-stretch flex-shrink-0"
+          style={{
+            width: "300px",
+            height: "80vh",
+            overflow: "scroll",
+          }}
         >
-          <a
+          <div
             href="/"
-            className="d-block p-3 link-body-emphasis text-decoration-none"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
-            data-bs-original-title="Icon-only"
+            className="d-flex align-items-center flex-shrink-0 link-body-emphasis text-decoration-none border-bottom"
           >
-            <svg
-              className="bi pe-none"
-              width="40"
-              height="32"
-            ></svg>
-            <span className="visually-hidden"></span>
-          </a>
+            <a
+              href="/"
+              className="d-block p-3 link-body-emphasis text-decoration-none"
+              data-bs-toggle="tooltip"
+              data-bs-placement="right"
+              data-bs-original-title="Icon-only"
+            >
+              <svg
+                className="bi pe-none"
+                width="40"
+                height="32"
+              ></svg>
+              <span className="visually-hidden"></span>
+            </a>
 
-          <span className="lead fs-3">
-            Public Rooms
-          </span>
-        </div>
+            <span className="lead fs-3">Public Rooms</span>
+          </div>
 
-        <div className="list-group list-group-flush border-bottom scrollarea">
-          <a
-            href="#"
-            className="list-group-item list-group-item-action active py-3 lh-sm"
-            aria-current="true"
-          >
-            <div className="d-flex w-100 align-items-center justify-content-between">
-              <div className="col-12 col-lg-12 mb-3 mb-lg-0 me-lg-3 d-flex">
-                <button
-                  type="button"
-                  className="btn btn-outline-warning me-2 col-5"
-                  onClick={handleAddNewPublic}
-                >
-                  Create with...
-                </button>
-                <input
-                  className="col-5 form-control form-control-dark text-bg-dark border border-warning text-warning"
-                  style={{ width: "12rem" }}
-                  onChange={(e) => setAddNewPublic(e.target.value)}
-                  value={addNewPublic}
-                />
-              </div>
-            </div>
-          </a>
-
-          {sessionsList.map((item, indexxx) => (
-            <div
-              className="list-group-item list-group-item-action py-3 lh-sm"
-              key={indexxx}
-              onClick={() => handleExistingChat(item)}
-              style={{ cursor: "pointer", background: "none" }}
+          <div className="list-group list-group-flush border-bottom scrollarea">
+            <a
+              href="#"
+              className="list-group-item list-group-item-action active py-3 lh-sm"
+              aria-current="true"
             >
               <div className="d-flex w-100 align-items-center justify-content-between">
-                <div className="mb-1 p-2">
-                  {item.sessionAdminUsername ==
-                    currentlyLoggedInUser.username && (
-                    <div>{item.sessionGuestUsername}</div>
-                  )}
-                  {item.sessionGuestUsername ==
-                    currentlyLoggedInUser.username && (
-                    <div>{item.sessionAdminUsername}</div>
-                  )}
-                  {item.sessionID}
+                <div className="col-12 col-lg-12 mb-3 mb-lg-0 me-lg-3 d-flex">
+                  <button
+                    type="button"
+                    className="btn btn-outline-warning me-2 col-6"
+                    onClick={handleAddNewPublic}
+                  >
+                    Create with...
+                  </button>
+                  <input
+                    className="col-5 form-control form-control-dark text-bg-dark border border-warning text-warning"
+                    style={{ width: "8rem" }}
+                    onChange={(e) => setAddNewPublic(e.target.value)}
+                    value={addNewPublic}
+                  />
                 </div>
               </div>
-            </div>
-          ))}
-          {/* TYPE HERE   blogggggggginfooodata */}
-          {/* /////////////////              END OF MIDDLE MENU        ///////////////////// */}
+            </a>
+
+            <div></div>
+
+            {sessionsList.map((item, indexxx) => (
+              <div
+                className="list-group-item list-group-item-action py-3 lh-sm"
+                key={indexxx}
+                onClick={() => handleExistingChat(item)}
+                style={{ cursor: "pointer", background: "none" }}
+              >
+                <div className="d-flex w-100 align-items-center justify-content-between">
+                  <div className="mb-1 p-2">
+                    {item.sessionAdminUsername ==
+                      currentlyLoggedInUser.username && (
+                      <div>{item.sessionGuestUsername}</div>
+                    )}
+                    {item.sessionGuestUsername ==
+                      currentlyLoggedInUser.username && (
+                      <div>{item.sessionAdminUsername}</div>
+                    )}
+                    {item.sessionID}
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* TYPE HERE   blogggggggginfooodata */}
+            {/* /////////////////              END OF MIDDLE MENU        ///////////////////// */}
+          </div>
         </div>
       </div>
 

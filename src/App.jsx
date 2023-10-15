@@ -10,19 +10,37 @@ function App() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentlyLoggedInUser, setCurrentlyLoggedInUser] = useState({})
+  const [currentlyLoggedInUser, setCurrentlyLoggedInUser] = useState({});
   return (
     <>
-      <Header
-        newUser={newUser}
-        setNewUser={setNewUser}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-      />
       {!loggedIn && (
-        <SignUp
+        <>
+          <Header
+            newUser={newUser}
+            setNewUser={setNewUser}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+          />
+          <SignUp
+            newUser={newUser}
+            setNewUser={setNewUser}
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            message={message}
+            setMessage={setMessage}
+            loggedIn={loggedIn}
+            setLoggedIn={setLoggedIn}
+            currentlyLoggedInUser={currentlyLoggedInUser}
+            setCurrentlyLoggedInUser={setCurrentlyLoggedInUser}
+          />
+        </>
+      )}
+      {loggedIn && (
+        <UserSafeHouse
           newUser={newUser}
           setNewUser={setNewUser}
           username={username}
@@ -37,19 +55,6 @@ function App() {
           setCurrentlyLoggedInUser={setCurrentlyLoggedInUser}
         />
       )}
-      {loggedIn && <UserSafeHouse 
-          newUser={newUser}
-          setNewUser={setNewUser}
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          message={message}
-          setMessage={setMessage}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
-          currentlyLoggedInUser={currentlyLoggedInUser}
-          setCurrentlyLoggedInUser={setCurrentlyLoggedInUser}/>}
     </>
   );
 }
