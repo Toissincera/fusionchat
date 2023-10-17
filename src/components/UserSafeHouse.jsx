@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { createClient } from "@supabase/supabase-js";
-import bg1 from "../pavlos-vaenas-usx_IFxo-MQ-unsplash.jpg";
+import bg1 from "../codioful-formerly-gradienta-m_7p45JfXQo-unsplash.jpg";
 import bg2 from "../resul-mentes-DbwYNr8RPbg-unsplash.jpg";
 
 const supabase = createClient(
@@ -139,13 +139,13 @@ export default function UserSafeHouse({
   // /////___________________________________________________________________________________________/////
   return (
     <main
-      className="d-flex flex-nowrap"
+      className="d-flex flex-nowrap bg-primary-subtle"
       style={{
         height: "90vh",
-        backgroundImage: `url(${bg2})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
+        // backgroundImage: `url(${bg2})`,
+        // backgroundSize: "cover",
+        // backgroundRepeat: "no-repeat",
+        // backgroundPosition: "center",
       }}
     >
       <div
