@@ -105,6 +105,7 @@ export default function UserSafeHouse({
         : item.sessionAdminUsername
     );
     setCurrentlyTalkingToSessionID(item.sessionID);
+    setShowingChat(true)
   }
 
   async function sendNewMessage() {
@@ -359,6 +360,8 @@ export default function UserSafeHouse({
           </div>
         </div>
       </div>
+
+      {/* //////////////////////               START OF RIGHT MENU        //////////////////////// */}
 
       <div
         style={{
